@@ -1,0 +1,71 @@
+---
+# file: php/tasks/main.yml
+
+- name: Install Packages
+  apt: pkg={{ item }} state=latest
+  with_items:
+    - php5
+    - php5-cli
+    - php5-dev
+    - php5-fpm
+    - php5-cgi
+    - php5-mysql
+    - php5-xmlrpc
+    - php5-curl
+    - php5-gd
+    - php-apc
+    - php-pear
+    - php5-imap
+    - php5-mcrypt
+    - php5-pspell
+    - mariadb-client
+  notify:
+    - Reload Nginx
+    - Restart Php5-fpm
+
+- name: Set php.ini
+  copy: >
+    src='php.ini'
+    dest='/etc/php5/fpm/php.ini'
+    owner=root
+    group=root
+    mode=0644
+
+- name: Enable FPM default pool
+  copy: >
+    src="{{ item.src }}"
+    dest="{{ item.dest }}"
+    owner=root
+    group=root
+    mode=0644
+  when: not php_disable_default_pool
+  with_items:
+        - { src: 'www.conf',                    dest: '/etc/php5/fpm/pool.d/www.conf'}
+        - { src: 'upstream.conf',               dest: '/etc/nginx/conf.d/upstream.conf'}
+  notify:
+    - Reload Nginx
+    - Restart Php5-fpm
+
+- name: Disable FPM deafult pool
+  file: >
+    path={{ item }}
+    state=absent
+  when: php_disable_default_pool
+  with_items:
+    - '/etc/php5/fpm/pool.d/www.conf'
+    - '/etc/nginx/conf.d/upstream.conf'
+  notify:
+    - Reload Nginx
+    - Restart Php5-fpm
+
+- name: Start Php5-fpm
+  service: name=php5-fpm state=started enabled=yes
+
+
+- name: Install Composer
+  shell: >
+    curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin
+    creates=/usr/bin/composer.phar
+
+- name: Composer self update
+  shell: composer.phar self-update

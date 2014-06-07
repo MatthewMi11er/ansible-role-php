@@ -1,0 +1,4 @@
+---
+# file: php/defaults/main.yml
+
+php_disable_default_pool: true
