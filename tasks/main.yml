@@ -40,8 +40,8 @@
     mode=0644
   when: not php_disable_default_pool
   with_items:
-        - { src: 'www.conf',                    dest: '/etc/php5/fpm/pool.d/www.conf'}
-        - { src: 'upstream.conf',               dest: '/etc/nginx/conf.d/upstream.conf'}
+        - { src: 'www.conf',                    dest: '{{ php_dir_pool }}/www.conf'}
+        - { src: 'upstream.conf',               dest: '{{ nginx_root }}/conf.d/upstream.conf'}
   notify:
     - Reload Nginx
     - Restart Php5-fpm
@@ -52,8 +52,8 @@
     state=absent
   when: php_disable_default_pool
   with_items:
-    - '/etc/php5/fpm/pool.d/www.conf'
-    - '/etc/nginx/conf.d/upstream.conf'
+    - '{{ php_dir_pool }}/www.conf'
+    - '{{ nginx_root }}/upstream.conf'
   notify:
     - Reload Nginx
     - Restart Php5-fpm

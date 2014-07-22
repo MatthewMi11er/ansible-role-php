@@ -1,4 +1,5 @@
 ---
 # file: php/defaults/main.yml
 
+php_dir_pool: /etc/php5/fpm/pool.d
 php_disable_default_pool: true
