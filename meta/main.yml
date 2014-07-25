@@ -2,4 +2,6 @@
 # php/meta/main.yml
 
 dependencies:
-  - { role: nginx }
+  - { role: mi11er.nginx }
+
+version: 1.0.0
