@@ -66,6 +66,13 @@
   shell: >
     curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin
     creates=/usr/bin/composer.phar
+    /usr/bin/composer.phar
+    
+- name: Link compser
+  file: >
+    src=/usr/bin/composer.phar 
+    dest=/usr/bin/composer 
+    state=link
 
 - name: Composer self update
   shell: composer.phar self-update
