@@ -2,7 +2,7 @@
 # php/meta/main.yml
 
 dependencies:
-  - { role: MatthewMi11er.nginx }
+  - role: MatthewMi11er.nginx
 
 version: 1.0.0
 galaxy_info:
