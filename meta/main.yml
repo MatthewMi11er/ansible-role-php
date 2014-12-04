@@ -1,19 +1,17 @@
 ---
 # php/meta/main.yml
 
-dependencies:
-  - role: MatthewMi11er.nginx
-
 version: 1.0.0
 galaxy_info:
   author: Matthew Miller
   description: A role to configure php
   company: 
   license: license (MIT)
-  min_ansible_version: 1.6
+  min_ansible_version: 1.7.2
   platforms:
     - name: Ubuntu
       versions:
         - trusty
   categories:
     - web
+dependencies: []

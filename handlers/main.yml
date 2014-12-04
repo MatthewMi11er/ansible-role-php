@@ -2,7 +2,7 @@
 # file: php/handlers/main.yml
 
 - name: Restart Php5-fpm
-  service: name=php5-fpm state=restarted enabled=yes
-
-- name: Reload Nginx
-  service: name=nginx state=restarted enabled=yes
+  service: 
+    name: php5-fpm 
+    state: restarted 
+    enabled: yes
