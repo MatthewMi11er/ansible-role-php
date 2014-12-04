@@ -13,7 +13,7 @@ A role to configure php
 
     - hosts: servers
       roles:
-         - { role: MatthewMi11er.php }
+         - MatthewMi11er.php
 
 ## License
 
