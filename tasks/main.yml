@@ -71,7 +71,8 @@
     - php
 
 - name: Install Composer
-  shell: curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin
+  shell: >
+    curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin
     creates: /usr/bin/composer.phar
   tags:
     - php
