@@ -67,13 +67,14 @@
     name: php5-fpm 
     state: started 
     enabled: yes
+  when: not php_disable_default_pool
   tags:
     - php
 
 - name: Install Composer
   shell: >
     curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin
-    creates: /usr/bin/composer.phar
+    creates=/usr/bin/composer.phar
   tags:
     - php
         
@@ -87,5 +88,7 @@
     
 - name: Composer self update
   shell: composer.phar self-update
+  register: php_composer_updated
+  changed_when: "'You are already using composer version' not in php_composer_updated.stdout"
   tags:
     - php
